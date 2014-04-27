@@ -1,5 +1,5 @@
 define symfony::nginx (
-  $app_name    = undef,
+  $app_name    = $title,
   $server_name = undef,
   $web_path    = undef,
   $enable      = true,
