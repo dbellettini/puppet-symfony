@@ -5,6 +5,6 @@ define symfony::nginx (
 ){
   file { "/etc/nginx/sites-available/$app_name": 
     ensure => present,
-    content => template('nginx/template.erb')
+    content => template('nginx/site.erb')
   }
 }
