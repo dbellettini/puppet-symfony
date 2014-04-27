@@ -1,7 +1,7 @@
 server {
     root <%= @web_root %>;
     # Make site accessible from http://localhost/
-    server_name <%= @app_name %>.sb1.pw;
+    server_name <%= @server_name %>;
 
     location / {
         try_files $uri @rewriteapp;
