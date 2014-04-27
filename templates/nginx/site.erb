@@ -1,0 +1,32 @@
+server {
+    root <%= @web_root %>;
+    # Make site accessible from http://localhost/
+    server_name <%= @app_name %>.sb1.pw;
+
+    location / {
+        try_files $uri @rewriteapp;
+    }
+
+    location @rewriteapp {
+        # riscrittura di tutto su app.php
+        rewrite ^(.*)$ /app.php/$1 last;
+    }
+
+    location ~ ^/(app|app_dev|config)\.php(/|$) {
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param HTTPS off;
+    }
+
+    error_log /var/log/nginx/<%= @app_name %>_error.log;
+    access_log /var/log/nginx/<%= @app_name %>_access.log;
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    location ~ /\.ht {
+	deny all;
+    }
+}
