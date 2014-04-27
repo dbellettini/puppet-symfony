@@ -1,4 +1,4 @@
-class symfony
+define symfony
 {
   class { 'php::extension::intl': }
 }
