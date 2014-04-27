@@ -1,6 +1,6 @@
 define symfony::nginx (
   $app_name    = $title,
-  $server_name = undef,
+  $server_name = '_',
   $web_root    = undef,
   $enable      = true,
 ){
