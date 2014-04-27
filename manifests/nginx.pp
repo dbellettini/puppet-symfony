@@ -1,7 +1,7 @@
 define symfony::nginx (
   $app_name    = $title,
   $server_name = undef,
-  $web_path    = undef,
+  $web_root    = undef,
   $enable      = true,
 ){
   file { "/etc/nginx/sites-available/$app_name": 
