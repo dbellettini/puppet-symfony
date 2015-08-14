@@ -5,14 +5,14 @@ define symfony::nginx (
   $enable      = true,
 ){
   $available = "/etc/nginx/sites-available/$app_name"
-  file {$available: 
+  file {$available:
     ensure  => present,
     content => template('symfony/nginx/site.erb'),
     notify  => Service['nginx'],
   }
 
   if($enable) {
-    file { "/etc/nginx/sites-enabled/$app_name": 
+    file { "/etc/nginx/sites-enabled/$app_name":
       ensure  => link,
       target  => $available,
       require => File[$available],
