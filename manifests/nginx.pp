@@ -1,8 +1,9 @@
 define symfony::nginx (
-  $app_name    = $title,
-  $server_name = '_',
-  $web_root    = undef,
-  $enable      = true,
+  $app_name     = $title,
+  $server_name  = '_',
+  $web_root     = undef,
+  $enable       = true,
+  $fastcgi_pass = 'unix:/var/run/php5-fpm.sock'
 ){
   $available = "/etc/nginx/sites-available/$app_name"
   file {$available:
