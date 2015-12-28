@@ -1,4 +1,20 @@
+<% if ssl_enabled %>
 server {
+    listen 80;
+    server_name <%= @server_name %>;
+    return 301 https://$server_name$request_uri;
+}
+<% end %>
+
+server {
+<% if ssl_enabled %>
+    listen 443 ssl;
+    ssl_certificate <%= @ssl_certificate %>;
+    ssl_certificate_key <%= @ssl_certificate_key %>;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+<% end %>
+
     root <%= @web_root %>;
     server_name <%= @server_name %>;
 
@@ -17,7 +33,11 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
+<% if ssl_enabled %>
+        fastcgi_param HTTPS on;
+<% else %>
         fastcgi_param HTTPS off;
+<% end %>
     }
 
     error_log /var/log/nginx/<%= @app_name %>_error.log;
