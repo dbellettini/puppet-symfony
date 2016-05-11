@@ -1,4 +1,4 @@
-<% if ssl_enabled %>
+<% if @ssl_enabled %>
 server {
     listen 80;
     server_name <%= @server_name %>;
@@ -7,7 +7,7 @@ server {
 <% end %>
 
 server {
-<% if ssl_enabled %>
+<% if @ssl_enabled %>
     listen 443 ssl;
     ssl_certificate <%= @ssl_certificate %>;
     ssl_certificate_key <%= @ssl_certificate_key %>;
@@ -33,7 +33,7 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
-<% if ssl_enabled %>
+<% if @ssl_enabled %>
         fastcgi_param HTTPS on;
 <% else %>
         fastcgi_param HTTPS off;
